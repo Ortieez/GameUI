@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard Panel</title>
+  </head>
+  <body>
+    <form id="dashboard">
+      <input name="first_team" type="text" />
+      <input name="second_team" type="text" />
+    </form>
+    <button onclick="test()">Submit</button>
+    <!-- 
+        <button onclick="send('show')">Show Score</button>
+        <button onclick="send('hide')">Hide Score</button>
+    -->
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var socket = io();
+
+      var form = document.getElementById("dashboard");
+
+      async function test() {
+        var data = form.elements;
+        console.log(data);
+        var result = {
+          first_team: data["first_team"].value,
+          second_team: data["second_team"].value,
+          
+        };
+        await socket.emit("teams", result);
+      }
+
+      async function send(data) {
+        await socket.emit("score", data);
+      }
+    </script>
+  </body>
+</html>

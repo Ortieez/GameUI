@@ -1,0 +1,15 @@
+{
+  "name": "gameui",
+  "version": "0.0.1",
+  "description": "User-server-stream ui that updates when user clicks on something on a dashboard it will show on some endpoint",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ortieez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "socket.io": "^4.4.1"
+  }
+}
