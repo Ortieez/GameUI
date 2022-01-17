@@ -3,6 +3,8 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const port = process.env.PORT || 3000;
 
+app.use(require("express").static("."));
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/dashboard.html");
 });
@@ -12,12 +14,12 @@ app.get("/game", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  socket.on("score", (data) => {
-    io.emit("score", data);
+  socket.on("clear", () => {
+    io.emit("clear");
   });
 
-  socket.on("teams", (data) => {
-      io.emit("teams", data);
+  socket.on("teams", (names, scores) => {
+    io.emit("teams", names, scores);
   });
 });
 

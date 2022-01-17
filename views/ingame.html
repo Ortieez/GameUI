@@ -1,44 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="node_modules\animejs\lib\anime.min.js"></script>
+    <script src="../scripts/ingame.js"></script>
     <title>Game</title>
+    <link rel="stylesheet" href="../style/ingame.css" />
   </head>
   <body>
-    <style>
-      .scores {
-        font-size: 50px;
-        background-color: white;
-      }
-    </style>
-    <div class="scores" id="table">
-      <span id="first_team"></span> : <span id="one_score">23</span>
-      <span id="second_team"></span> : <span id="two_score">1</span>
+    <div class="guide"></div>
+    <div class="scoreboard">
+      <div class="nameA">
+        <span class="name" id="teamA"></span>
+      </div>
+      <div class="nameB">
+        <span class="name" id="teamB"></span>
+      </div>
+
+      <div class="scoreA">
+        <span class="score" id="teamA_score"></span>
+      </div>
+      <div class="scoreB">
+        <span class="score" id="teamB_score"></span>
+      </div>
+
+      <!-- 
+        <div class="names" id="table">          
+        </div>
+
+        -->
     </div>
-
-    <script src="/socket.io/socket.io.js"></script>
-
-    <script>
-      var socket = io();
-      var scores = document.getElementById("table");
-      var localstorage = window.localStorage;
-
-      document.getElementById("first_team").innerHTML = localstorage.getItem("first_team");
-      document.getElementById("second_team").innerHTML = localstorage.getItem("second_team");
-
-      socket.on("score", function (data) {
-        if (data == "show") {
-          scores.style.display = "block";
-        } else if (data == "hide") {
-          scores.style.display = "none";
-        }
-      });
-
-      socket.on("teams", function (data) {
-        document.getElementById("first_team").innerHTML = data.first_team;
-        document.getElementById("second_team").innerHTML = data.second_team;
-        localstorage.setItem("first_team", data.first_team);
-        localstorage.setItem("second_team", data.second_team);
-      });
-    </script>
   </body>
 </html>

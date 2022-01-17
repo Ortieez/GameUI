@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../scripts/dashboard.js"></script>
+
     <title>Dashboard Panel</title>
   </head>
   <body>
     <form id="dashboard">
-      <input name="first_team" type="text" />
-      <input name="second_team" type="text" />
+      <div class="teams">
+        Team Names:
+        <label for="teamA">
+          <input
+            name="teamA"
+            type="text"
+            id="teamA"
+            placeholder="First Team"
+            required
+          />
+        </label>
+        <label for="teamB">
+          <input
+            name="teamB"
+            type="text"
+            id="teamB"
+            placeholder="Second Team"
+            required
+          />
+        </label>
+        <div class="scores" id="scores">
+          Team A Score:
+          <span id="scoreA">0</span>
+          <button type="button" id="A" onclick="plus(1, 'A')">+1</button>
+          <button type="button" id="A" onclick="plus(2, 'A')">+2</button>
+          <button type="button" id="A" onclick="plus(3, 'A')">+3</button>
+          <button type="button" id="A" onclick="plus(-3, 'A')">-3</button>
+          <button type="button" id="A" onclick="plus(-2, 'A')">-2</button>
+          <button type="button" id="A" onclick="plus(-1, 'A')">-1</button>
+          <br />
+          Team B Score:
+          <span id="scoreB">0</span>
+          <button type="button" id="B" onclick="plus(1, 'B')">+1</button>
+          <button type="button" id="B" onclick="plus(2, 'B')">+2</button>
+          <button type="button" id="B" onclick="plus(3, 'B')">+3</button>
+          <button type="button" id="B" onclick="plus(-3, 'B')">-3</button>
+          <button type="button" id="B" onclick="plus(-2, 'B')">-2</button>
+          <button type="button" id="B" onclick="plus(-1, 'B')">-1</button>
+        </div>
+      </div>
     </form>
-    <button onclick="test()">Submit</button>
-    <!-- 
-        <button onclick="send('show')">Show Score</button>
-        <button onclick="send('hide')">Hide Score</button>
-    -->
-
-    <script src="/socket.io/socket.io.js"></script>
-
-    <script>
-      var socket = io();
-
-      var form = document.getElementById("dashboard");
-
-      async function test() {
-        var data = form.elements;
-        console.log(data);
-        var result = {
-          first_team: data["first_team"].value,
-          second_team: data["second_team"].value,
-          
-        };
-        await socket.emit("teams", result);
-      }
-
-      async function send(data) {
-        await socket.emit("score", data);
-      }
-    </script>
+    <button onclick="submit()" type="button">Submit</button>
+    <button onclick="clearInfo()" type="button">Clear</button>
   </body>
 </html>

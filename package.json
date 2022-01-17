@@ -9,7 +9,9 @@
   "author": "ortieez",
   "license": "ISC",
   "dependencies": {
+    "animejs": "^3.2.1",
     "express": "^4.17.2",
+    "nodemon": "^2.0.15",
     "socket.io": "^4.4.1"
   }
 }
